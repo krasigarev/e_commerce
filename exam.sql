@@ -52,3 +52,15 @@ WHERE order_status = 'delivered' AND order_delivered_customer_date != ''
 GROUP BY DATEPART(YEAR, order_purchase_timestamp),
 		 DATEPART(MONTH, order_purchase_timestamp)
 ORDER BY order_year ASC, order_month ASC;
+
+-- 5. What are the top 10 best-selling products by category?
+
+SELECT TOP 10
+	pc.product_category_name_english,
+	COUNT(*) AS [Count product in Category]
+FROM dbo.product_category_name_translation AS pc
+LEFT JOIN dbo.products AS p ON pc.product_category_name_english = p.product_category_name
+GROUP BY pc.product_category_name_english
+ORDER BY [Count product in Category] DESC;
+
+
