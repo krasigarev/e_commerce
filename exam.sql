@@ -68,8 +68,9 @@ ORDER BY [Count product in Category] DESC;
 
 SELECT
 	g.geolocation_state,
+	c.customer_city,
 	COUNT(g.geolocation_state) AS [Customers in a state]
 FROM dbo.geolocation AS g
 LEFT JOIN dbo.customers AS c ON g.geolocation_zip_code_prefix = c.customer_zip_code_prefix
-GROUP BY g.geolocation_state, g.geolocation_city
+GROUP BY g.geolocation_state, c.customer_city
 ORDER BY COUNT(g.geolocation_state) DESC;
