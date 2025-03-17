@@ -20,6 +20,7 @@ ORDER BY COUNT(*) DESC;
 -- 3. Most popular product categories.
 
 -- 3.1 Spanish name product category
+
 SELECT
 	p.product_category_name,
 	COUNT(*) AS [Category_count]
@@ -63,4 +64,12 @@ LEFT JOIN dbo.products AS p ON pc.product_category_name_english = p.product_cate
 GROUP BY pc.product_category_name_english
 ORDER BY [Count product in Category] DESC;
 
+-- 6. How many users are there in a given state?
 
+SELECT
+	g.geolocation_state,
+	COUNT(g.geolocation_state) AS [Customers in a state]
+FROM dbo.geolocation AS g
+LEFT JOIN dbo.customers AS c ON g.geolocation_zip_code_prefix = c.customer_zip_code_prefix
+GROUP BY g.geolocation_state, g.geolocation_city
+ORDER BY COUNT(g.geolocation_state) DESC;
